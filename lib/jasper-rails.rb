@@ -51,7 +51,10 @@ module JasperRails
       end
       
       def self.render_pdf(jasper_file, datasource, parameters, options)
-      
+
+        ENV['CLASS_PATH'] ||= classpath
+        ENV['JVM_ARGS'] ||= '-Djava.awt.headless=true,-Xms128M,-Xmx256M'
+
         Rjb::load( ENV['CLASS_PATH'], ENV['JVM_ARGS'].split(",") ) unless Rjb::loaded?
       
         # The code below is to workaround declaring constants within methods
